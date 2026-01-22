@@ -183,10 +183,10 @@ func main() {
 	router := http.NewServeMux()
 	
 	router.HandleFunc("GET /api/v1/categories", getAllCategories)
-	router.HandleFunc("GET /api/v1//categories/{id}", getCategoryById)
-	router.HandleFunc("POST /api/v1//categories", createCategory)
-	router.HandleFunc("PUT /api/v1//categories/{id}", updateCategoryById)
-	router.HandleFunc("DELETE /api/v1//categories/{id}", deleteCategoryById)
+	router.HandleFunc("GET /api/v1/categories/{id}", getCategoryById)
+	router.HandleFunc("POST /api/v1/categories", createCategory)
+	router.HandleFunc("PUT /api/v1/categories/{id}", updateCategoryById)
+	router.HandleFunc("DELETE /api/v1/categories/{id}", deleteCategoryById)
 
 	server := http.Server{
 		Addr: ":8080",
