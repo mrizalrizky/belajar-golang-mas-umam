@@ -182,15 +182,16 @@ func deleteCategoryById(w http.ResponseWriter, r *http.Request) {
 func main() {
 	router := http.NewServeMux()
 	
-	router.HandleFunc("GET /categories", getAllCategories)
-	router.HandleFunc("GET /categories/{id}", getCategoryById)
-	router.HandleFunc("POST /categories", createCategory)
-	router.HandleFunc("PUT /categories/{id}", updateCategoryById)
-	router.HandleFunc("DELETE /categories/{id}", deleteCategoryById)
+	router.HandleFunc("GET /api/v1/categories", getAllCategories)
+	router.HandleFunc("GET /api/v1//categories/{id}", getCategoryById)
+	router.HandleFunc("POST /api/v1//categories", createCategory)
+	router.HandleFunc("PUT /api/v1//categories/{id}", updateCategoryById)
+	router.HandleFunc("DELETE /api/v1//categories/{id}", deleteCategoryById)
 
 	server := http.Server{
 		Addr: ":8080",
 		Handler: router,
+
 	}
 
 	fmt.Println("Server is running on port 8080")
