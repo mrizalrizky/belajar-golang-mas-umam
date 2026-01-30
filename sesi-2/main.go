@@ -195,8 +195,8 @@ func main() {
 	v.AutomaticEnv()
 	v.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 
-	if _, err := os.Stat(".env"); err != nil {
-		v.SetConfigFile("./pkg/common/envs/.env")
+	if _, err := os.Stat(".env"); err == nil {
+		v.SetConfigFile(".env")
 	}
 
 	err := v.ReadInConfig()
