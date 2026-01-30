@@ -1,4 +1,4 @@
-module mrizalrizky/belajar-go
+module mrizalrizky/sesi-1
 
 go 1.25.6
 
