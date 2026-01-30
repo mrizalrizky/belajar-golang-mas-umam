@@ -2,7 +2,6 @@ package handlers
 
 import (
 	"encoding/json"
-	"fmt"
 	"mrizalrizky/sesi-2/internal/response"
 	"mrizalrizky/sesi-2/models"
 	"mrizalrizky/sesi-2/services"
@@ -137,8 +136,8 @@ func (h *ProductHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	
-	Product, err := h.service.GetProductByID(id)
-	if Product == nil {
+	product, err := h.service.GetProductByID(id)
+	if product == nil {
 		encoder.Encode(response.ApiResponse{
 			Success: true,
 			Message: "Product with that ID not found",
@@ -150,7 +149,7 @@ func (h *ProductHandler) GetByID(w http.ResponseWriter, r *http.Request) {
 	encoder.Encode(response.ApiResponse{
 		Success: true,
 		Message: "Product retrieved successfully",
-		Data: Product,
+		Data: product,
 	})
 }
 
@@ -179,7 +178,6 @@ func (h *ProductHandler) UpdateByID(w http.ResponseWriter, r *http.Request) {
 	}
 
 	updateProduct.ID = id
-	fmt.Println("UPODATEPRODUCT", updateProduct)
 	if err := h.service.UpdateProductByID(&updateProduct); err != nil {
 		encoder.Encode(response.ApiResponse{
 			Success: false,
