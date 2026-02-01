@@ -197,11 +197,9 @@ func main() {
 
 	if _, err := os.Stat(".env"); err == nil {
 		v.SetConfigFile(".env")
-	}
-
-	err := v.ReadInConfig()
-	if err != nil {
-		panic("Config file not found!")
+		if err := v.ReadInConfig(); err != nil {
+			log.Fatal("Failed to read config file:", err)
+		}
 	}
 
 	config := Config{
@@ -217,17 +215,18 @@ func main() {
 	
 	router := http.NewServeMux()
 
-	productRepo := repositories.NewProductRepository(db)
-	productService := services.NewProductService(productRepo)
-	productHandler := handlers.NewProductHandler(productService)
-	router.HandleFunc("/api/v1/products", productHandler.HandleProducts)
-	router.HandleFunc("/api/v1/products/{id}", productHandler.HandleProductByID)
 	
 	categoryRepo := repositories.NewCategoryRepository(db)
 	categoryService := services.NewCategoryService(categoryRepo)
 	categoryHandler := handlers.NewCategoryHandler(categoryService)
 	router.HandleFunc("/api/v1/categories", categoryHandler.HandleCategories)
 	router.HandleFunc("/api/v1/categories/{id}", categoryHandler.HandleCategoryByID)
+	
+	productRepo := repositories.NewProductRepository(db)
+	productService := services.NewProductService(productRepo)
+	productHandler := handlers.NewProductHandler(productService)
+	router.HandleFunc("/api/v1/products", productHandler.HandleProducts)
+	router.HandleFunc("/api/v1/products/{id}", productHandler.HandleProductByID)
 
 	server := http.Server{
 		Addr: ":"+config.Port,
