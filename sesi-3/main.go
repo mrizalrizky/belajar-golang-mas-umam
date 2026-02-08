@@ -76,7 +76,13 @@ func main() {
 	transactionRepo := repositories.NewTransactionRepository(db)
 	transactionService := services.NewTransactionService(transactionRepo)
 	transactionHandler := handlers.NewTransactionHandler(transactionService)
-	router.HandleFunc("/api/v1/checkout", transactionHandler.HandleCheckout) // POST
+	router.HandleFunc("/api/v1/checkout", transactionHandler.HandleCheckout)
+
+	reportRepo := repositories.NewReportRepository(db)
+	reportService := services.NewReportService(reportRepo)
+	reportHandler := handlers.NewReportHandler(reportService)
+	router.HandleFunc("/api/v1/report/hari-ini", reportHandler.HandleTodayReport) // untuk handle sales today reporet
+	router.HandleFunc("/api/v1/report", reportHandler.HandleReport) // Untuk handle sales report filtering
 
 	server := http.Server{
 		Addr: ":"+config.Port,
