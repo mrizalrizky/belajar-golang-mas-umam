@@ -1,0 +1,34 @@
+package services
+
+import (
+	"mrizalrizky/sesi-3/models"
+	"mrizalrizky/sesi-3/repositories"
+)
+
+type ProductService struct {
+	repo *repositories.ProductRepository
+}
+
+func NewProductService(repo *repositories.ProductRepository) *ProductService {
+	return &ProductService{repo: repo}
+}
+
+func (s *ProductService) GetAllProducts(name string) ([]models.Product, error) {
+	return s.repo.GetAll(name)
+}
+
+func (s *ProductService) CreateProduct(product *models.Product) (error) {
+	return s.repo.Create(product)
+}
+
+func (s *ProductService) GetProductByID(id int) (*models.Product, error) {
+	return s.repo.GetByID(id)
+}
+
+func (s *ProductService) UpdateProductByID(product *models.Product) (error) {
+	return s.repo.UpdateByID(product)
+}
+
+func (s *ProductService) DeleteProductByID(id int) error {
+	return s.repo.DeleteByID(id)
+}
